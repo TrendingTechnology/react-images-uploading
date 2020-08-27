@@ -41,49 +41,53 @@ import ImageUploading from "react-images-uploading";
 const maxNumber = 10;
 const maxMbFileSize = 5 * 1024 * 1024; // 5Mb
 
-class Example extends React.Component {
+const Example = () => {
   const [images, setImages] = useState([]);
 
-  onChange = (imageList, addUpdateIndex) => {
+  const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     setImages(imageList);
-    console.log('index of new chosen images: ', addUpdateIndex)
+    console.log("index of new chosen images: ", addUpdateIndex);
   };
-  onError = (errors, files) => {
+  const onError = (errors, files) => {
     console.log(errors, files);
   };
 
-  render() {
-    return (
-      <ImageUploading
-        value={images}
-        onChange={this.onChange}
-        maxNumber={maxNumber}
-        multiple
-        maxFileSize={maxMbFileSize}
-        acceptType={["jpg", "gif", "png"]}
-        onError={this.onError}
-        dataURLKey="data_url"
-      >
-        {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove }) => (
-          // write your building UI
-          <div>
-            <button onClick={onImageUpload}>Upload images</button>
-            <button onClick={onImageRemoveAll}>Remove all images</button>
+  return (
+    <ImageUploading
+      value={images}
+      onChange={onChange}
+      maxNumber={maxNumber}
+      multiple
+      maxFileSize={maxMbFileSize}
+      acceptType={["jpg", "gif", "png"]}
+      onError={onError}
+      dataURLKey="data_url"
+    >
+      {({
+        imageList,
+        onImageUpload,
+        onImageRemoveAll,
+        onImageUpdate,
+        onImageRemove,
+      }) => (
+        // write your building UI
+        <div>
+          <button onClick={onImageUpload}>Upload images</button>
+          <button onClick={onImageRemoveAll}>Remove all images</button>
 
-            {imageList.map((image, index) => (
-              <div key={index}>
-                <img src={image.data_url} />
-                <button onClick={() => onImageUpdate(index)}>Update</button>
-                <button onClick={() => onImageRemove(index)}>Remove</button>
-              </div>
-            ))}
-          </div>
-        )}
-      </ImageUploading>
-    );
-  }
-}
+          {imageList.map((image, index) => (
+            <div key={index}>
+              <img src={image.data_url} />
+              <button onClick={() => onImageUpdate(index)}>Update</button>
+              <button onClick={() => onImageRemove(index)}>Remove</button>
+            </div>
+          ))}
+        </div>
+      )}
+    </ImageUploading>
+  );
+};
 ```
 
 ### Validate
@@ -156,6 +160,16 @@ Usage is very simple. Follow this:
 | dragProps        | object                                           | Native element props for drag and drop feature        |
 | isDragging       | boolean                                          | "true" if image\(s\) is dragged into drag and space\. |
 
-## License
+## Development
 
-MIT © [](https://github.com/)
+Clone this repo then:
+
+```bash
+yarn install
+```
+
+then
+
+```bash
+yarn start
+```
